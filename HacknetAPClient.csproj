@@ -131,6 +131,7 @@
     <Compile Include="Patches\Missions\ForcePlayerOnNaixPath.cs" />
     <Compile Include="Patches\Missions\PreventOutOfLogicMissions.cs" />
     <Compile Include="Patches\PointClickerPatches.cs" />
+    <Compile Include="Patches\TutorialPatch.cs" />
     <Compile Include="Patches\ReplaceBootText.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Replacements\ArchipelagoTextBox.cs" />

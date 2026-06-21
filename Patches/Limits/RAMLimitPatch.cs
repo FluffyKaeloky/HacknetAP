@@ -93,13 +93,5 @@ namespace HacknetArchipelago.Patches
 
             UpdateRamModule(__instance);
         }
-
-        [HarmonyPostfix]
-        [HarmonyPatch(typeof(TutorialExe), MethodType.Constructor, new Type[] { typeof(Rectangle), typeof(OS) })]
-        public static void TutorialNeededRAMFix(TutorialExe __instance, Rectangle location, OS operatingSystem)
-        {
-            __instance.baseRamCost = 1;
-            __instance.ramCost = 1;
-        }
     }
 }
