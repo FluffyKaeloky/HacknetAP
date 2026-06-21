@@ -114,6 +114,10 @@ namespace HacknetArchipelago
 
         public static bool HasItemsForLocation(string locationName)
         {
+            // Fix for Project Junebug. Kellis Biotech Daemon for Pacemaker docs seems to trigger that.
+            if (locationName == null)
+                return true;
+
             if (!RequiredItemsForLocation.ContainsKey(locationName)) return true;
 
             var requiredItems = RequiredItemsForLocation[locationName];

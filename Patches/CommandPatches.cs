@@ -16,7 +16,7 @@ namespace HacknetArchipelago.Patches
             string playerSave = cmdEvent.Os.defaultUser.name + ".pcsav";
             bool isDestructive = _destructiveCommands.Contains(cmdEvent.Args[0]);
 
-            if (!isDestructive || targetComp.idName != "pointclicker" ||
+            if (!isDestructive || (targetComp != null && targetComp.idName != "pointclicker") ||
                 cmdEvent.Args[1] != playerSave) return;
 
             cmdEvent.Os.terminal.writeLine("Oops! You're not allowed to do that.");
@@ -36,7 +36,7 @@ namespace HacknetArchipelago.Patches
             bool hasExe = ArchipelagoItems.PlayerHasExecutable(executableName);
             OS os = cmdEvent.Os;
 
-            if(!hasExe && !excludedExes.Contains(cmdEvent.Args[2]))
+            if(!hasExe && !excludedExes.Contains(cmdEvent.Args[1]))
             {
                 cmdEvent.Cancelled = true;
                 os.write("You can't download that -- you haven't unlocked it yet!");

@@ -205,7 +205,7 @@ namespace HacknetArchipelago.Patches.Missions
                 if(ArchipelagoLocations.RequiredRAMUpgradesForLocation.ContainsKey(mission.email.subject))
                 {
                     hasEnoughRam = !limitingRam ||
-                        InventoryManager._ramLimit >= ArchipelagoLocations.RequiredRAMUpgradesForLocation[mission.email.subject];
+                        RAMLimitPatch.GetRAMLimit() >= ArchipelagoLocations.RequiredRAMUpgradesForLocation[mission.email.subject];
                 }
 
                 var subject = mission.email.subject;

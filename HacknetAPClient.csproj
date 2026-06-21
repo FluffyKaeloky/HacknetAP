@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\ILRepack.2.0.45\build\ILRepack.props" Condition="Exists('packages\ILRepack.2.0.45\build\ILRepack.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -12,6 +13,8 @@
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,39 +35,59 @@
     <LangVersion>12.0</LangVersion>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>12.0</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>12.0</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony">
-      <HintPath>..\..\..\..\..\SteamLibrary\steamapps\common\Hacknet\BepInEx\core\0Harmony.dll</HintPath>
+      <HintPath>libs\0Harmony.dll</HintPath>
     </Reference>
-    <Reference Include="Archipelago.MultiClient.Net, Version=6.6.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\Archipelago.MultiClient.Net.dll</HintPath>
+    <Reference Include="Archipelago.MultiClient.Net, Version=6.7.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Archipelago.MultiClient.Net.6.7.1\lib\net45\Archipelago.MultiClient.Net.dll</HintPath>
     </Reference>
     <Reference Include="BepInEx.Core">
-      <HintPath>..\..\..\..\..\SteamLibrary\steamapps\common\Hacknet\BepInEx\core\BepInEx.Core.dll</HintPath>
+      <HintPath>libs\BepInEx.Core.dll</HintPath>
     </Reference>
     <Reference Include="BepInEx.Hacknet">
-      <HintPath>..\..\..\..\..\SteamLibrary\steamapps\common\Hacknet\BepInEx\core\BepInEx.Hacknet.dll</HintPath>
+      <HintPath>libs\BepInEx.Hacknet.dll</HintPath>
     </Reference>
     <Reference Include="FNA">
-      <HintPath>..\..\..\..\..\SteamLibrary\steamapps\common\Hacknet\FNA.dll</HintPath>
+      <HintPath>libs\FNA.dll</HintPath>
     </Reference>
-    <Reference Include="Hacknet">
-      <HintPath>..\..\..\..\..\SteamLibrary\steamapps\common\Hacknet\Hacknet.exe</HintPath>
+    <Reference Include="HacknetPathfinder">
+      <HintPath>libs\HacknetPathfinder.exe</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil, Version=0.11.4.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\SteamLibrary\steamapps\common\Hacknet\BepInEx\core\Mono.Cecil.dll</HintPath>
+      <HintPath>libs\Mono.Cecil.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoMod.RuntimeDetour">
+      <HintPath>libs\MonoMod.RuntimeDetour.dll</HintPath>
     </Reference>
     <Reference Include="MonoMod.Utils, Version=21.9.19.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\SteamLibrary\steamapps\common\Hacknet\BepInEx\core\MonoMod.Utils.dll</HintPath>
+      <HintPath>libs\MonoMod.Utils.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Archipelago.MultiClient.Net.6.6.0\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>packages\Archipelago.MultiClient.Net.6.7.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PathfinderAPI">
-      <HintPath>..\..\..\..\..\SteamLibrary\steamapps\common\Hacknet\BepInEx\plugins\PathfinderAPI.dll</HintPath>
+      <HintPath>libs\PathfinderAPI.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -92,8 +115,10 @@
     <Compile Include="Patches\CommandPatches.cs" />
     <Compile Include="Patches\Computers\ComputerCrashPatch.cs" />
     <Compile Include="Patches\Computers\ComputerLoadPatches.cs" />
+    <Compile Include="Patches\Computers\ComputerPatches.cs" />
     <Compile Include="Patches\Debugging\LogLoadedMissions.cs" />
     <Compile Include="Patches\ForceLogErrorsPatch.cs" />
+    <Compile Include="Patches\GameMenuPatch.cs" />
     <Compile Include="Patches\Goals\AltitudeLossPatch.cs" />
     <Compile Include="Patches\Goals\HeartstopperPatch.cs" />
     <Compile Include="Patches\Goals\VeteranPatch.cs" />
@@ -119,11 +144,12 @@
     <Content Include="assets\archipelago.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <HacknetInstall>M:\SteamLibrary\steamapps\common\Hacknet\</HacknetInstall>
+    <HacknetInstall>C:\Program Files (x86)\Steam\steamapps\common\Hacknet\</HacknetInstall>
   </PropertyGroup>
   <Target Name="PrepareMergeLib" BeforeTargets="AfterBuild">
     <ItemGroup>
@@ -150,5 +176,13 @@
     <Exec Command="ilrepack /parallel /internalize /lib:&quot;$(TargetDir)MergeLib&quot; /out:&quot;$(TargetDir)$(TargetName).Merged.dll&quot; @(MergeAssemblies->'&quot;%(FullPath)&quot;', ' ')" />
     <Move ContinueOnError="false" SourceFiles="$(TargetDir)$(TargetName).dll" DestinationFiles="$(TargetDir)$(TargetName).Standalone.dll" />
     <Move ContinueOnError="false" SourceFiles="$(TargetDir)$(TargetName).Merged.dll" DestinationFiles="$(TargetDir)$(TargetName).dll" />
+    <Copy SourceFiles="$(TargetDir)$(TargetName).Standalone.dll" DestinationFiles="$(HacknetInstall)BepInEx\plugins\$(TargetName).dll" />
+    <Copy SourceFiles="$(TargetDir)$(TargetName).pdb" DestinationFiles="$(HacknetInstall)BepInEx\plugins\$(TargetName).pdb" />
+  </Target>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\ILRepack.2.0.45\build\ILRepack.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\ILRepack.2.0.45\build\ILRepack.props'))" />
   </Target>
 </Project>

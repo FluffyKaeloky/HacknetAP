@@ -1,11 +1,13 @@
 ﻿using Hacknet;
 using HacknetArchipelago.Managers;
+using HarmonyLib;
 using Microsoft.Xna.Framework;
 using Pathfinder.Event.Gameplay;
 using System;
 
 namespace HacknetArchipelago.Patches
 {
+    [HarmonyPatch]
     public class RAMLimitPatch
     {
         public static bool ramWasSet = false;
@@ -57,11 +59,47 @@ namespace HacknetArchipelago.Patches
         {
             OS os = OS.currentInstance;
 
+            UpdateRamModule(os);
+        }
+
+        public static void UpdateRamModule(OS os)
+        {
+            int originalLocation = 2;
+            
+            // Fix for having the RAM window in possibly different locations based on active x-server.
+            if (os.ram != null)
+                originalLocation = os.ram.Bounds.X;
+
             os.modules.Remove(os.ram);
-            os.ram = new RamModule(new Rectangle(2, OS.TOP_BAR_HEIGHT,
+            os.ram = new RamModule(new Rectangle(originalLocation, OS.TOP_BAR_HEIGHT,
                 RamModule.MODULE_WIDTH, os.ramAvaliable + RamModule.contentStartOffset), os);
             os.ram.name = "RAM";
             os.modules.Add(os.ram);
+        }
+
+        // Fix for RAM amount when reloading a session.
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(OS), nameof (OS.LoadContent))]
+        public static void LoadContentPostfix(OS __instance)
+        {
+            if (HacknetAPCore.SlotData.LimitsShuffle != HacknetAPSlotData.LimitsMode.OnlyRAM &&
+                HacknetAPCore.SlotData.LimitsShuffle != HacknetAPSlotData.LimitsMode.EnableAllLimits)
+            {
+                return;
+            }
+
+            __instance.ramAvaliable = GetRAMLimit();
+            __instance.totalRam = __instance.ramAvaliable - (OS.TOP_BAR_HEIGHT + 2);
+
+            UpdateRamModule(__instance);
+        }
+
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(TutorialExe), MethodType.Constructor, new Type[] { typeof(Rectangle), typeof(OS) })]
+        public static void TutorialNeededRAMFix(TutorialExe __instance, Rectangle location, OS operatingSystem)
+        {
+            __instance.baseRamCost = 1;
+            __instance.ramCost = 1;
         }
     }
 }
