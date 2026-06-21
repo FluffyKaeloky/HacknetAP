@@ -1,3 +1,13 @@
+# Fork of Hacknet: Archipelago
+
+This is a fork of the original Hacknet Archipelago mod. It fixes a few things that prevented the game to run or had me softlock during my run.
+
+Everything is provided as is. Some fixes are quick and dirty, but *It works on my machine* (TM).
+
+Don't forget to use the fixed APWorld as well !
+
+(Link to AP World repo soon)
+
 # Hacknet: Archipelago
 An [Archipelago](https://archipelago.gg/) client mod for Hacknet
 ---
