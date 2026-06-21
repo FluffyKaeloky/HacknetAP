@@ -25,11 +25,16 @@ namespace HacknetArchipelago.Patches.Computers
 
             if (HacknetAPCore.DeathLinkService == null && !OS.DEBUG_COMMANDS) return;
 
+            Console.WriteLine((DateTime.Now - GameMenuPatch.exitMenuTime));
+
+            // Quick patch to avoid sending a death link event when creating a new session (Essentially just when exiting the main menu). The first boot of the machine seems to call the crash method.
+            if ((DateTime.Now - GameMenuPatch.exitMenuTime) < TimeSpan.FromSeconds(5))
+                return;
+
             if(!DeathLinkManager._crashCausedByDeathLink && HacknetAPCore.DeathLinkService != null)
             {
                 string playerName = HacknetAPCore.ArchipelagoSession.Players.ActivePlayer.Name;
-                DeathLink deathLink = new(playerName,
-                    $"{playerName}'s VM hard crashed...");
+                DeathLink deathLink = new(playerName, $"{playerName}'s VM hard crashed...");
                 HacknetAPCore.DeathLinkService.SendDeathLink(deathLink);
                 return;
             }

@@ -33,6 +33,8 @@ using HacknetArchipelago.Managers;
 using HacknetArchipelago.Daemons;
 using Pathfinder.Daemon;
 using Microsoft.Xna.Framework.Content;
+using HarmonyLib;
+using HarmonyLib.Tools;
 
 namespace HacknetArchipelago
 {

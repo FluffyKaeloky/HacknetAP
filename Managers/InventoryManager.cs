@@ -61,7 +61,7 @@ namespace HacknetArchipelago.Managers
 
         public static bool PlayerCollectedItem(string itemName)
         {
-            foreach (var itemsCollected in allCollectedItems.Values)
+            foreach (var itemsCollected in allCollectedItems.Keys)
             {
                 if (itemsCollected.Contains(itemName))
                 {
