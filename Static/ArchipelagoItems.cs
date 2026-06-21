@@ -130,7 +130,7 @@ namespace HacknetArchipelago
             "SQL_MemCorrupt", "KBTPortTest", "eosDeviceScan", "DEC Suite",
             "OpShell", "Tracekill", "ThemeChanger", "Clock", "HexClock",
             "HacknetEXE", "TorrentStreamInjector", "SSLTrojan", "FTPSprint",
-            "Mem Suite", "PacificPortcrusher", "ComShell",
+            "Mem Suite", "PacificPortcrusher", "ComShell", "NetmapOrganizer",
             "DNotes", "Tuneswap", "ClockV2", "SignalScramble"
         };
 
