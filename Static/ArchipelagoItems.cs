@@ -130,14 +130,13 @@ namespace HacknetArchipelago
             "SQL_MemCorrupt", "KBTPortTest", "eosDeviceScan", "DEC Suite",
             "OpShell", "Tracekill", "ThemeChanger", "Clock", "HexClock",
             "HacknetEXE", "TorrentStreamInjector", "SSLTrojan", "FTPSprint",
-            "Mem Suite", "PacificPortcrusher", "ComShell", "NetmapOrganizer",
+            "Mem Suite", "PacificPortcrusher", "ComShell",
             "DNotes", "Tuneswap", "ClockV2", "SignalScramble"
         };
 
         public static readonly List<string> LabyrinthsExecutableNames = new()
         {
-            "TorrentStreamInjector", "SSLTrojan", "Mem Suite", "PacificPortcrusher", "ComShell",
-            "NetmapOrganizer", "DNotes", "Tuneswap", "ClockV2", "SignalScramble"
+            "TorrentStreamInjector", "SSLTrojan", "Mem Suite", "PacificPortcrusher", "ComShell", "DNotes", "Tuneswap", "ClockV2", "SignalScramble"
         };
 
         public static long ArchipelagoDataToItem(string data)
