@@ -4,9 +4,9 @@ This is a fork of the original Hacknet Archipelago mod. It fixes a few things th
 
 Everything is provided as is. Some fixes are quick and dirty, but *It works on my machine* (TM).
 
-Don't forget to use the fixed APWorld as well !
+Don't forget to use the fixed APWorld linked in the release ! Otherwise you'll have a crash on connect.
 
-(Link to AP World repo soon)
+# -------- Below is original README --------
 
 # Hacknet: Archipelago
 An [Archipelago](https://archipelago.gg/) client mod for Hacknet
